@@ -6,11 +6,12 @@ from util.py import read_instance_from_file
 import sys
 import math
 
+
 def read_instance_from_file(path):
     """
     Reads coordinates from an instance
     :param path: path to instance text file containing the coordinates
-    :return: x_coords and y_coords list where x_coords[0] is the x-coordinate of airport with index 1 in the file
+    :return: list of tuples containing x- and y-coordinates of airports where index 0 is the first airport
     """
     x_coords = []
     y_coords = []
@@ -19,16 +20,21 @@ def read_instance_from_file(path):
             line = line.replace("\n", "").split(" ")
             x_coords.append(float(line[1]))
             y_coords.append(float(line[2]))
-    return x_coords, y_coords
+    return list(zip(x_coords, y_coords))
 
 
-def euclidean_distance(x1, x2, y1, y2):
-    return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+def euclidean_distance(a, b):
+    """
+    Calculate euclidean distance
+    :param a: Tuple of coordinates of point a
+    :param b: Tuple of coordinates of point b
+    :return: euclidian distance
+    """
+    return math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
 
 
 def calculate_distances(x_coords, y_coords):
     pass
-
 
 
 if __name__ == "__main__":
@@ -47,13 +53,13 @@ if __name__ == "__main__":
 
     if len(args) == 1:
         # default
-        path = "/data/eins.txt"
+        path = "./data/eins.txt"
     elif len(args) == 2:
         path = sys.argv[1]
     else:
         ValueError("Usage: python util.py <path to instance>")
 
-    x_coords, y_coords = read_instance_from_file(path)
+    coords = read_instance_from_file(path)
 
-    print(x_coords)
-    print(y_coords)
+    print(coords)
+    print(coords[0][1])
