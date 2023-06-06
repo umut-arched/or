@@ -25,6 +25,12 @@ def plot_coordinates(coords, route=None):
     for i, coord in enumerate(coords):
         plt.text(coord[0], coord[1], str(i), ha='center', va='bottom')
 
+    # Plot edges between vertices
+    for i in range(len(route) - 1):
+        start = route[i]
+        end = route[i + 1]
+        plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], 'r')
+
     # Show the plot
     plt.show()
 
@@ -51,12 +57,10 @@ def nearest_neighbour(coords):
     return route
 
 
-
-
 if __name__ == "__main__":
 
     coords = read_instance_from_file("./data/eins.txt")
     route = nearest_neighbour(coords)
     print(route)
 
-    plot_coordinates(coords)
+    plot_coordinates(coords, route)
