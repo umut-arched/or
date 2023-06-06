@@ -1,3 +1,7 @@
+"""
+To use in other scripts:
+from read_instance.py import read_instance_from_file
+"""
 
 import sys
 
