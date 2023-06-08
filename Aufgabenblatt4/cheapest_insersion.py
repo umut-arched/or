@@ -1,10 +1,10 @@
 from util import read_instance_from_file, euclidean_distance, plot_coordinates
 def cheapest_insertion(coords):
-    airports = list(range(0, len(coords), 1)) # (1...10)
+    airports = list(range(0, len(coords), 1)) # (0...10)
     v = airports[0]
-    hamilton = [v] #(1, 1)
+    hamilton = [v, v] #(1, 1)
 
-    while len(hamilton) < len(airports):
+    while len(hamilton) < len(airports) + 1:
         unvisitedAirports = [airport for airport in airports if airport not in hamilton] # (2..10)
         closestAirport = None
         min_distance = float('inf')
@@ -13,8 +13,7 @@ def cheapest_insertion(coords):
             if distance < min_distance:
                 min_distance = distance
                 closestAirport = airport
-        hamilton.append(closestAirport)
-    hamilton.append(0)
+        hamilton.insert(-1, closestAirport)
     totalDistance = sum(euclidean_distance(coords[hamilton[i]], coords[hamilton[i+1]]) for i in range(len(hamilton)-1))
     return hamilton, float(totalDistance)
 
