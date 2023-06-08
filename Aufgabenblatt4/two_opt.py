@@ -6,7 +6,6 @@ from nearest_neighbour import *
 
 
 def two_opt(coords, init_route, iteration_depth):
-
     def get_edges(route):
         """
         Returns all edges of a given route
@@ -14,8 +13,8 @@ def two_opt(coords, init_route, iteration_depth):
         :return: list of tuples representing edges
         """
         edges = []
-        for i in range(len(route)-1):
-            edges.append((init_route[i], init_route[i+1]))
+        for i in range(len(route) - 1):
+            edges.append((init_route[i], init_route[i + 1]))
         return edges
 
     def get_non_adjacent_edge_pairs(edges):
@@ -25,8 +24,8 @@ def two_opt(coords, init_route, iteration_depth):
         :return:
         """
         pairs = []
-        for i in range(len(edges)-2):
-            for j in range(i+2, min(i+len(edges)-1, len(edges)), 1):
+        for i in range(len(edges) - 2):
+            for j in range(i + 2, min(i + len(edges) - 1, len(edges)), 1):
                 pairs.append((edges[i], edges[j]))
         return pairs
 
@@ -49,6 +48,7 @@ def two_opt(coords, init_route, iteration_depth):
         c = pair[1][0]
         d = pair[1][1]
         new_route = []
+
         i = 0  # index to iterate through old_route
         while 1<2:
             new_route.append(old_route[i])
@@ -67,6 +67,12 @@ def two_opt(coords, init_route, iteration_depth):
             if old_route[i] == 0:
                 break
             i += 1
+
+        # slice1 = old_route[0: old_route.index(a) + 1]
+        # slice2 = old_route[old_route.index(b): old_route.index(c) + 1]
+        # slice3 = old_route[old_route.index(d):]
+        #
+        # new_route = slice1 + slice2[::-1] + slice3
 
         return new_route
 
@@ -141,11 +147,8 @@ if __name__ == "__main__":
     print(init_route)
     print(init_route_length)
 
-    optimized_route, optimized_route_length = two_opt(coords, init_route, 3)
+    optimized_route, optimized_route_length = two_opt(coords, init_route, 4)
 
     print(optimized_route)
     print(optimized_route_length)
     plot_coordinates(coords, optimized_route)
-
-
-
