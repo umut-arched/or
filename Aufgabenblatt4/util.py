@@ -50,7 +50,7 @@ def get_route_length(coords, route):
     return route_length
 
 
-def plot_coordinates(coords, route=None):
+def plot_coordinates(coords, route=None, index_shift=True):
     """
     Visualize the network using matplotlib
     :param coords: Coordinates of airports
@@ -79,7 +79,7 @@ def plot_coordinates(coords, route=None):
 
     # Add indices to the points
     for i, coord in enumerate(coords):
-        plt.text(coord[0], coord[1], str(i+1), ha='center', va='center', c='w', zorder=3)
+        plt.text(coord[0], coord[1], str(i + 1 if index_shift else i), ha='center', va='center', c='w', zorder=3)
 
     # Show the plot
     plt.show()
