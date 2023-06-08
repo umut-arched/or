@@ -5,6 +5,7 @@ from util.py import read_instance_from_file
 
 import sys
 import math
+import matplotlib.pyplot as plt
 
 
 def read_instance_from_file(path):
@@ -33,8 +34,39 @@ def euclidean_distance(a, b):
     return math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
 
 
-def calculate_distances(x_coords, y_coords):
-    pass
+def plot_coordinates(coords, route=None):
+    """
+    Visualize the network using matplotlib
+    :param coords: Coordinates of airports
+    :param route: Order of airports in the route
+    :return:
+    """
+
+    # extract x- and y-coordinates
+    x_coords = [coord[0] for coord in coords]
+    y_coords = [coord[1] for coord in coords]
+
+    # Plot edges between vertices
+    if route:
+        for i in range(len(route) - 1):
+            start = route[i]
+            end = route[i + 1]
+            plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], '#036ffc', zorder=1)
+
+    # Plot the coordinates
+    plt.scatter(x_coords, y_coords, s=200, c='#0320fc', zorder=2)
+
+    # Add labels and title
+    plt.xlabel('X Coordinates')
+    plt.ylabel('Y Coordinates')
+    plt.title('Airport network graph')
+
+    # Add indices to the points
+    for i, coord in enumerate(coords):
+        plt.text(coord[0], coord[1], str(i+1), ha='center', va='center', c='w', zorder=3)
+
+    # Show the plot
+    plt.show()
 
 
 if __name__ == "__main__":
