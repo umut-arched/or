@@ -6,21 +6,34 @@ from nearest_neighbour import *
 
 
 def two_opt(coords, route, iteration_depth):
+    """
+    Execute the two_opt algorith for a maximum iteration depth
+    :param coords: List of coordinate tuples of the airports
+    :param route: initial route calculated by one of the start heuristics
+    :param iteration_depth: maximum number of iterations
+    :return: route, route_length
+    """
 
     improvement = True
     best_route = init_route
     best_route_length = get_route_length(coords, init_route)
 
     iteration = 0
+    # iterate as long as improvements are made or the iteration depth is reached
     while improvement and iteration < iteration_depth:
         improvement = False
         iteration += 1
 
+        # select first edge (here, an edge has start node i and end node i + 1)
         for i in range(1, len(route) - 2):
+
+            # select second edge (start node j, end node j + 1)
             for j in range(i + 1, len(route)):
+
+                # skip iteration if edges are adjacent since adjacent edges can't be swapped
                 if j - i == 1:
-                    # skip iteration if edges are adjacent
                     continue
+
                 new_route = list(route)
                 # reverse the selected edges
                 new_route[i:j] = route[j - 1 : i - 1 : -1]
