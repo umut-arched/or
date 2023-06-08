@@ -50,8 +50,6 @@ def nearest_neighbour(coords):
 
 if __name__ == "__main__":
 
-    print(len(sys.argv))
-
     if len(sys.argv) != 2:
         raise ValueError("\n\tUsage: python nearest_neighbour.py <path to instance>\n"
                          "\tTry:   python nearest_neighbour.py ./data/eins.txt")
