@@ -33,23 +33,24 @@ def two_opt(coords, route, iteration_depth):
         route = best_route
 
     if not improvement:
-        print(f"Optimal route found after {iteration} iterations.")
+        print(f"Optimal route found after {iteration} iterations")
     else:
-        print(f"Iteration limit of {iteration} iterations has been reached. Exiting.")
+        print(f"Iteration limit of {iteration} iterations has been reached, exiting")
 
     return best_route, best_route_length
 
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 3:
-        raise ValueError("\n\tUsage: python two_opt.py <path to instance> <start heuristic>\n"
-                         "\tTry:   python two_opt.py ./data/eins.txt nearest_neighbour")
+    if len(sys.argv) != 4:
+        raise ValueError("\n\tUsage: python two_opt.py <path to instance> <start heuristic> <iteration depth>\n"
+                         "\tTry:   python two_opt.py ./data/eins.txt nearest_neighbour 1000")
     else:
         file_path = sys.argv[1]
         start_heuristic = sys.argv[2]
+        iteration_depth = sys.argv[3]
 
-    # check if start heuristic is eligible and import function
+    # check if start heuristic is available and import function
     possible_start_heuristics = ["nearest_neighbour", "cheapest_insertion"]
     if start_heuristic not in possible_start_heuristics:
         raise ValueError(f"\n\tUsage: python two_opt.py <path to instance> <start heuristic>\n"
@@ -67,11 +68,14 @@ if __name__ == "__main__":
     # get initial route and route_length
     init_route, init_route_length = function(coords)
 
-    print(init_route)
-    print(init_route_length)
+    print(f"Initial route has length of {init_route_length:.2f} using {start_heuristic.replace('_', ' ')} algorithm")
 
+    print(f"Executing 2-opt algorithm for {iteration_depth} iterations")
     optimized_route, optimized_route_length = measure_runtime(two_opt, coords, init_route, 1000)
 
-    print(optimized_route)
-    print(optimized_route_length)
+    print(f"Resulting route when using the 2-opt algorithm has a length of {optimized_route_length:.2f}, "
+          f"improvement of {init_route_length-optimized_route_length:.2f}:"
+          f"\n \t{[value + 1 for value in optimized_route]}")
+
+    print("Plotting optimized network graph...")
     plot_coordinates(coords, optimized_route)
