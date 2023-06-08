@@ -15,6 +15,8 @@ def read_instance_from_file(path):
     :param path: path to instance text file containing the coordinates
     :return: list of tuples containing x- and y-coordinates of airports where index 0 is the first airport
     """
+    filename = path.replace('\\', '/').split('/')[-1]
+    print(f"Reading instance: {filename}")
     x_coords = []
     y_coords = []
     with open(path, 'r') as file:
@@ -52,10 +54,10 @@ def plot_coordinates(coords, route=None):
         for i in range(len(route) - 1):
             start = route[i]
             end = route[i + 1]
-            plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], '#036ffc', zorder=1)
+            plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], '#6093f7', zorder=2)
 
     # Plot the coordinates
-    plt.scatter(x_coords, y_coords, s=200, c='#0320fc', zorder=2)
+    plt.scatter(x_coords, y_coords, s=200, c='#1132d6', zorder=1)
 
     # Add labels and title
     plt.xlabel('X Coordinates')
