@@ -50,8 +50,6 @@ def nearest_neighbour(coords):
 
 if __name__ == "__main__":
 
-    print(len(sys.argv))
-
     if len(sys.argv) != 2:
         raise ValueError("\n\tUsage: python nearest_neighbour.py <path to instance>\n"
                          "\tTry:   python nearest_neighbour.py ./data/eins.txt")
@@ -66,8 +64,8 @@ if __name__ == "__main__":
 
     print(f"Executing nearest neighbour algorith on {len(coords)} airports...")
     route, route_length = measure_runtime(nearest_neighbour, coords)
-    print(f"Resulting route when using the nearest neighbour algorithm has a length of {route_length:.2f}:\n \t{[value + 1 for value in route]}")
+    print(f"Resulting route when using the nearest neighbour algorithm has a length of {route_length:.2f}:"
+          f"\n \t{[value + 1 for value in route]}")
 
     print("Plotting network graph...")
     plot_coordinates(coords, route)
-
