@@ -1,10 +1,10 @@
-from util import read_instance_from_file, euclidean_distance, plot_coordinates
+from util import *
 
 
 def nearest_neighbour(coords):
 
     # get list of all airports except the first one (index 0) since we start from there
-    airports_left = list(range(1, 10, 1))
+    airports_left = list(range(1, len(coords), 1))
     current_airport = 0
     route = [0]
 
@@ -25,8 +25,9 @@ def nearest_neighbour(coords):
 
 if __name__ == "__main__":
 
-    coords = read_instance_from_file("./data/eins.txt")
-    route = nearest_neighbour(coords)
+    coords = read_instance_from_file("./data/zwei.txt")
+    route = measure_runtime(nearest_neighbour, coords)
     print(f"Resulting route when using the nearest neighbour algorithm:\n \t{[value + 1 for value in route]}")
 
     plot_coordinates(coords, route)
+
