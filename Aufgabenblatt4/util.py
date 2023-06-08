@@ -37,6 +37,19 @@ def euclidean_distance(a, b):
     return math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
 
 
+def get_route_length(coords, route):
+    """
+    Calculates the length of a given route
+    :param coords: Coordinates of airports
+    :param route: Order of airports in the route
+    :return: length of route
+    """
+    route_length = 0
+    for i in range(len(route)-1):
+        route_length += euclidean_distance(coords[route[i]], coords[route[i+1]])
+    return route_length
+
+
 def plot_coordinates(coords, route=None):
     """
     Visualize the network using matplotlib
