@@ -5,116 +5,39 @@ from util import *
 from nearest_neighbour import *
 
 
-def two_opt(coords, init_route, iteration_depth):
-    def get_edges(route):
-        """
-        Returns all edges of a given route
-        :param r: given route
-        :return: list of tuples representing edges
-        """
-        edges = []
-        for i in range(len(route) - 1):
-            edges.append((init_route[i], init_route[i + 1]))
-        return edges
+def two_opt(coords, route, iteration_depth):
 
-    def get_non_adjacent_edge_pairs(edges):
-        """
-        Get all pairs of non-adjacent edges that might be considered for edge-swapping
-        :param edges:
-        :return:
-        """
-        pairs = []
-        for i in range(len(edges) - 2):
-            for j in range(i + 2, min(i + len(edges) - 1, len(edges)), 1):
-                pairs.append((edges[i], edges[j]))
-        return pairs
+    improvement = True
+    best_route = init_route
+    best_route_length = get_route_length(coords, init_route)
 
-    def swap_edges(old_route, pair):
-        """
-        Create a new route by swapping two edges
+    iteration = 0
+    while improvement and iteration < iteration_depth:
+        improvement = False
+        iteration += 1
 
-        Process given input ((a, b), (c, d)):
-            - iterate through initial route until node a is reached
-            - from node a, jump to node c
-            - from node c, iterate backwards through the initial route until node b is reached
-            - from node b, jump to node d
-            - from node d, iterate forward through the initial route until node a is reached to complete the route
-
-        :param pair: a pair of edges to be swapped ((a, b), (c, d)) where a, b, c, d are nodes (airports)
-        :return: new route
-        """
-        a = pair[0][0]
-        b = pair[0][1]
-        c = pair[1][0]
-        d = pair[1][1]
-        new_route = []
-
-        i = 0  # index to iterate through old_route
-        while 1<2:
-            new_route.append(old_route[i])
-            if old_route[i] == a:
-                break
-            i += 1
-        i = old_route.index(c)
-        while 1 < 2:
-            new_route.append(old_route[i])
-            if old_route[i] == b:
-                break
-            i -= 1
-        i = old_route.index(d)
-        while 1 < 2:
-            new_route.append(old_route[i])
-            if old_route[i] == 0:
-                break
-            i += 1
-
-        # slice1 = old_route[0: old_route.index(a) + 1]
-        # slice2 = old_route[old_route.index(b): old_route.index(c) + 1]
-        # slice3 = old_route[old_route.index(d):]
-        #
-        # new_route = slice1 + slice2[::-1] + slice3
-
-        return new_route
-
-    # edges = get_edges(init_route)
-    # print(edges)
-    # pairs = get_non_adjacent_edge_pairs(edges)
-    # print(pairs)
-    # print(swap_edges(init_route, pairs[1]))
-
-    i = 0
-    current_route = init_route
-    current_route_length = get_route_length(coords, init_route)
-    while i < iteration_depth:
-        i += 1
-
-        # initialize variables to save best route and best length for this iteration
-        best_route = None
-        best_route_length = None
-
-        # iterate through all edge pairs that can be swapped
-        pairs = get_non_adjacent_edge_pairs(get_edges(current_route))
-        for pair in pairs:
-            new_route = swap_edges(current_route, pair)
-            new_route_length = get_route_length(coords, new_route)
-
-            # update best_route if new_route is better than best_route and current_route
-            if new_route_length < current_route_length:
-                if best_route_length is None:
-                    best_route = new_route
+        for i in range(1, len(route) - 2):
+            for j in range(i + 1, len(route)):
+                if j - i == 1:
+                    # skip iteration if edges are adjacent
+                    continue
+                new_route = list(route)
+                # reverse the selected edges
+                new_route[i:j] = route[j - 1 : i - 1 : -1]
+                new_route_length = get_route_length(coords, new_route)
+                if new_route_length < best_route_length:
                     best_route_length = new_route_length
-                elif new_route_length < best_route_length:
                     best_route = new_route
-                    best_route_length = new_route_length
+                    improvement = True
 
-        # break if no better route could be found, else update current_route and continue loop
-        if best_route is None:
-            break
-        else:
-            current_route = best_route
-            current_route_length = best_route_length
+        route = best_route
 
-    return current_route, current_route_length
+    if not improvement:
+        print(f"Optimal route found after {iteration} iterations.")
+    else:
+        print(f"Iteration limit of {iteration} iterations has been reached. Exiting.")
+
+    return best_route, best_route_length
 
 
 if __name__ == "__main__":
@@ -147,7 +70,7 @@ if __name__ == "__main__":
     print(init_route)
     print(init_route_length)
 
-    optimized_route, optimized_route_length = two_opt(coords, init_route, 4)
+    optimized_route, optimized_route_length = measure_runtime(two_opt, coords, init_route, 1000)
 
     print(optimized_route)
     print(optimized_route_length)
