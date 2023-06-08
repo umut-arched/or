@@ -1,11 +1,12 @@
 """
 To use in other scripts:
-from util.py import read_instance_from_file
+from util.py import <function name>, <function name>, ...
 """
 
 import sys
 import math
 import matplotlib.pyplot as plt
+import time
 
 
 def read_instance_from_file(path):
@@ -14,6 +15,8 @@ def read_instance_from_file(path):
     :param path: path to instance text file containing the coordinates
     :return: list of tuples containing x- and y-coordinates of airports where index 0 is the first airport
     """
+    filename = path.replace('\\', '/').split('/')[-1]
+    print(f"Reading instance: {filename}")
     x_coords = []
     y_coords = []
     with open(path, 'r') as file:
@@ -51,10 +54,10 @@ def plot_coordinates(coords, route=None):
         for i in range(len(route) - 1):
             start = route[i]
             end = route[i + 1]
-            plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], '#036ffc', zorder=1)
+            plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], '#6093f7', zorder=2)
 
     # Plot the coordinates
-    plt.scatter(x_coords, y_coords, s=200, c='#0320fc', zorder=2)
+    plt.scatter(x_coords, y_coords, s=200, c='#1132d6', zorder=1)
 
     # Add labels and title
     plt.xlabel('X Coordinates')
@@ -69,6 +72,23 @@ def plot_coordinates(coords, route=None):
     plt.show()
 
 
+def measure_runtime(func, *args, **kwargs):
+    """
+    Measures the runtime of a function call.
+        - call function, returns its return value
+        - print runtime to command line
+    :param func: function to measure runtime of
+    :param *args: parameters of function to pass
+    :return: return value of function
+    """
+    start_time = time.perf_counter()
+    return_value = func(*args, **kwargs)
+    end_time = time.perf_counter()
+    runtime = (end_time - start_time) * 1000  # in milliseconds
+    print(f"Runtime of {func.__name__}: {runtime:.2f} ms")
+    return return_value
+
+
 if __name__ == "__main__":
     """
     The following code is only used for testing. The algorithm scripts only access the read_instance_from_file function.
@@ -81,12 +101,12 @@ if __name__ == "__main__":
     Example: python util.py /data/eins.txt
     """
 
-    args = sys.argv
+    clargs = sys.argv
 
-    if len(args) == 1:
+    if len(clargs) == 1:
         # default
         path = "./data/eins.txt"
-    elif len(args) == 2:
+    elif len(clargs) == 2:
         path = sys.argv[1]
     else:
         ValueError("Usage: python util.py <path to instance>")
