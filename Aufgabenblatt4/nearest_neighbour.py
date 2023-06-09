@@ -62,7 +62,7 @@ if __name__ == "__main__":
     else:
         raise FileNotFoundError(f"File not found: {file_path}")
 
-    print(f"Executing nearest neighbour algorith on {len(coords)} airports...")
+    print(f"Executing nearest neighbour algorithm on {len(coords)} airports...")
     route, route_length = measure_runtime(nearest_neighbour, coords)
     print(f"Resulting route when using the nearest neighbour algorithm has a length of {route_length:.2f}:"
           f"\n \t{[value + 1 for value in route]}")

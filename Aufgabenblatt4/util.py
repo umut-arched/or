@@ -50,11 +50,12 @@ def get_route_length(coords, route):
     return route_length
 
 
-def plot_coordinates(coords, route=None, index_shift=True):
+def plot_coordinates(coords, edges=None, index_shift=True):
     """
     Visualize the network using matplotlib
     :param coords: Coordinates of airports
-    :param route: Order of airports in the route
+    :param edges: Order of airports in the route
+    :param index_shift: if True, add 1 to all indices to get indices like in the instances (starting at 1)
     :return:
     """
 
@@ -63,11 +64,17 @@ def plot_coordinates(coords, route=None, index_shift=True):
     y_coords = [coord[1] for coord in coords]
 
     # Plot edges between vertices
-    if route:
-        for i in range(len(route) - 1):
-            start = route[i]
-            end = route[i + 1]
-            plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], '#6093f7', zorder=2)
+    if edges:
+        # if edges is list of integers: plot route
+        if isinstance(edges, list) and all(isinstance(item, int) for item in edges):
+            for i in range(len(edges) - 1):
+                start = edges[i]
+                end = edges[i + 1]
+                plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], '#6093f7', zorder=2)
+        # if edges is list of tuples: plot route
+        elif isinstance(edges, list) and all(isinstance(item, tuple) for item in edges):
+            for start, end in edges:
+                plt.plot([x_coords[start], x_coords[end]], [y_coords[start], y_coords[end]], '#6093f7', zorder=2)
 
     # Plot the coordinates
     plt.scatter(x_coords, y_coords, s=200, c='#1132d6', zorder=1)
