@@ -12,38 +12,33 @@ def nearest_neighbour(coords):
 
     # list of all airports not visited yet (all excluding the first one since we start from there)
     nodes_left = list(range(1, len(coords), 1))
-    current_airport = 0
+    current_node = 0
     # list of all nodes (airports) already in the route
     route = [0]
     route_length = 0
 
     # iterate
     while nodes_left:
+        best_node = None
+        best_route = None
+        best_route_length = None
 
-        # get all distances to other airports from current airport
-        distances = []
-        for airport in nodes_left:
-            distances.append(euclidean_distance(coords[current_airport], coords[airport]))
+        for node in nodes_left:
+            new_route = route.copy()
+            new_route.append(node)
+            new_route_length = route_length + euclidean_distance(coords[current_node], coords[node])
+            if best_node is None or new_route_length < best_route_length:
+                best_node = node
+                best_route = new_route.copy()
+                best_route_length = new_route_length
 
-        # find shortest distance to another airport
-        min_dist = distances.index(min(distances))
+        route = list(best_route)
+        route_length = best_route_length
+        current_node = best_node
+        del nodes_left[nodes_left.index(best_node)]
 
-        # add distance to next airport to route length
-        route_length += distances[min_dist]
-
-        # add next airport to route
-        route.append(nodes_left[min_dist])
-
-        # set next airport to current airport for next iteration
-        current_airport = nodes_left[min_dist]
-
-        # delete next airport from list of airports left
-        del nodes_left[min_dist]
-
-        # add distance back to first airport if all airports have been visited
-        if not nodes_left:
-            route_length += euclidean_distance(coords[current_airport], coords[0])
-
+    # add starting airport to complete route
+    route_length += euclidean_distance(coords[route[-1]], coords[0])
     route.append(0)
 
     return route, route_length
