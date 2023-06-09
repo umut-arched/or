@@ -1,6 +1,10 @@
 """
-To use in other scripts:
-from util.py import <function name>, <function name>, ...
+This script contains helper functions used in other scripts of this project.
+It does not need to be called individually.
+
+To use in other scripts use either:
+    from util.py import <function name>, <function name>, ...
+    from util.py import *
 """
 
 import sys
@@ -54,7 +58,7 @@ def plot_coordinates(coords, edges=None, index_shift=True):
     """
     Visualize the network using matplotlib
     :param coords: Coordinates of airports
-    :param edges: Order of airports in the route
+    :param edges: either route (List[int]) or minimal spanning tree (List[Tuple[int]])
     :param index_shift: if True, add 1 to all indices to get indices like in the instances (starting at 1)
     :return:
     """

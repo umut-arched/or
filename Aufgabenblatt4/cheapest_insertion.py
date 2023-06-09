@@ -6,7 +6,8 @@ def cheapest_insertion(coords):
 
     # list of all nodes (airports) not visited yet (all excluding the first one since we start from there)
     nodes_left = list(range(1, len(coords), 1))
-    route = [0, 0]  # list of all nodes (airports) already in the minimal spanning tree
+    # list of all nodes (airports) already in the route
+    route = [0, 0]  # init: [0, 0]. Other nodes will be inserted during iterations.
     route_length = 0
 
     while nodes_left:

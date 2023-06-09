@@ -11,17 +11,18 @@ def nearest_neighbour(coords):
     """
 
     # list of all airports not visited yet (all excluding the first one since we start from there)
-    airports_left = list(range(1, len(coords), 1))
+    nodes_left = list(range(1, len(coords), 1))
     current_airport = 0
+    # list of all nodes (airports) already in the route
     route = [0]
     route_length = 0
 
     # iterate
-    while len(airports_left) != 0:
+    while nodes_left:
 
         # get all distances to other airports from current airport
         distances = []
-        for airport in airports_left:
+        for airport in nodes_left:
             distances.append(euclidean_distance(coords[current_airport], coords[airport]))
 
         # find shortest distance to another airport
@@ -31,16 +32,16 @@ def nearest_neighbour(coords):
         route_length += distances[min_dist]
 
         # add next airport to route
-        route.append(airports_left[min_dist])
+        route.append(nodes_left[min_dist])
 
         # set next airport to current airport for next iteration
-        current_airport = airports_left[min_dist]
+        current_airport = nodes_left[min_dist]
 
         # delete next airport from list of airports left
-        del airports_left[min_dist]
+        del nodes_left[min_dist]
 
         # add distance back to first airport if all airports have been visited
-        if not airports_left:
+        if not nodes_left:
             route_length += euclidean_distance(coords[current_airport], coords[0])
 
     route.append(0)

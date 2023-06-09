@@ -23,10 +23,8 @@ def two_opt(coords, route, iteration_depth):
 
         # select first edge (here, an edge has start node i and end node i + 1)
         for i in range(1, len(route) - 2):
-
             # select second edge (start node j, end node j + 1)
             for j in range(i + 1, len(route)):
-
                 # skip iteration if edges are adjacent since adjacent edges can't be swapped
                 if j - i == 1:
                     continue
