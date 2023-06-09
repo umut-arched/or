@@ -115,14 +115,13 @@ def measure_runtime(func, *args, **kwargs):
 
 if __name__ == "__main__":
     """
-    The following code is only used for testing. The algorithm scripts only access the read_instance_from_file function.
+    The following code is only used for testing. The algorithm scripts only import the functions.
     
     However, the script can be called in order to read instances and have the lists containing x- and y-coordinates
     printed:
     
-    Usage: python util.py <path to instance>
-    
-    Example: python util.py /data/eins.txt
+        Usage:      python util.py <path to instance>
+        Example:    python util.py /data/eins.txt
     """
 
     clargs = sys.argv
@@ -136,6 +135,4 @@ if __name__ == "__main__":
         ValueError("Usage: python util.py <path to instance>")
 
     coords = read_instance_from_file(path)
-
     print(coords)
-    print(coords[0][1])
