@@ -48,4 +48,5 @@ if __name__ == "__main__":
     print(f"Resulting MST when using prim's algorithm has a length of {mst_length:.2f} and contains edges:"
           f"\n \t{[(value[0] + 1, value[1] + 1) for value in mst]}")
 
-    plot_coordinates(coords)
+    print("Plotting network graph...")
+    plot_coordinates(coords, mst)
