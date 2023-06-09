@@ -1,7 +1,4 @@
-import sys
-import os
 import importlib
-from util import *
 from nearest_neighbour import *
 
 
@@ -46,21 +43,26 @@ def two_opt(coords, route, iteration_depth):
         route = best_route
 
     if not improvement:
-        print(f"Optimal route found after {iteration} iterations")
+        if iteration-1 == 0:
+            print("Input route already is optimized")
+        else:
+            print(f"Optimized route found after {iteration-1} iterations")
     else:
-        print(f"Iteration limit of {iteration} iterations has been reached, exiting")
+        print(f"Iteration limit of {iteration} iterations has been reached")
 
     return best_route, best_route_length
 
 
 if __name__ == "__main__":
 
+    # check for correct number of command line args
     if len(sys.argv) != 4:
         raise ValueError("\n\tUsage: python two_opt.py <path to instance> <start heuristic> <iteration depth>\n"
                          "\tTry:   python two_opt.py ./data/eins.txt nearest_neighbour 1000")
     else:
         file_path = sys.argv[1]
-        start_heuristic = sys.argv[2]
+        # convert string like "./nearest_neighbour.py" to "nearest_neighbour"
+        start_heuristic = sys.argv[2].replace("\\", "/").split("/")[-1].replace(".py", "")
         iteration_depth = sys.argv[3]
 
     # check if start heuristic is available and import function
