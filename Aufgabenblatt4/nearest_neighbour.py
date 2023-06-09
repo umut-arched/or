@@ -1,5 +1,5 @@
-from util import *
 import os
+from util import *
 
 
 def nearest_neighbour(coords):

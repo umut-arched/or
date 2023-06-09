@@ -1,5 +1,6 @@
+import os
 import importlib
-from nearest_neighbour import *
+from util import *
 
 
 def two_opt(coords, route, iteration_depth):
