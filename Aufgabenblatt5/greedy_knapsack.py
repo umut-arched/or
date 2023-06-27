@@ -1,3 +1,8 @@
+"""
+Usage: python greedy_knapsack.py <path to instance>
+Try:   python greedy_knapsack.py ./instances/kp_0_1_10_50.txt
+"""
+
 import sys
 from util import *
 
