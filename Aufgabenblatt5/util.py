@@ -1,5 +1,11 @@
 
 
+class Item:
+    def __init__(self, weight, value):
+        self.weight = weight
+        self.value = value
+        self.profitability = value/weight
+
 
 def read_instance_from_file(path, print_instance=False):
     """
@@ -37,5 +43,20 @@ def read_instance_from_file(path, print_instance=False):
     return num_items, weights, values, capacity
 
 
+def create_item_classes(weights, values):
+
+    if len(weights) != len(values):
+        raise ValueError("Number of weights and values given is not equal. Can't create classes.")
+
+    items = []
+    for weight, value in zip(weights, values):
+        items.append(Item(weight, value))
+
+    return items
+
+
 if __name__ == "__main__":
-    read_instance_from_file("./instances/whoopdeedoo.txt", print_instance=True)
+    num_items, weights, values, capacity = read_instance_from_file("./instances/whoopdeedoo.txt", print_instance=True)
+    items = create_item_classes(weights, values)
+
+    pass
