@@ -1,10 +1,14 @@
 
 
 class Item:
-    def __init__(self, weight, value):
+    def __init__(self, id, weight, value):
+        self.id = id
         self.weight = weight
         self.value = value
         self.profitability = value/weight
+
+    def __str__(self):
+        return f"Item {self.id}: value = {self.value}, weight = {self.weight}."
 
 
 def read_instance_from_file(path, print_instance=False):
@@ -35,10 +39,10 @@ def read_instance_from_file(path, print_instance=False):
 
     # print instance
     if print_instance:
-        print(f"Number of items: {num_items}")
-        print(f"Item weights:    {weights}")
-        print(f"Item values:     {values}")
-        print(f"Capacity:        {capacity}")
+        print(f"  Number of items: {num_items}")
+        print(f"  Item weights:    {weights}")
+        print(f"  Item values:     {values}")
+        print(f"  Capacity:        {capacity}")
 
     return num_items, weights, values, capacity
 
@@ -49,13 +53,31 @@ def create_item_classes(weights, values):
         raise ValueError("Number of weights and values given is not equal. Can't create classes.")
 
     items = []
-    for weight, value in zip(weights, values):
-        items.append(Item(weight, value))
+    for i, (weight, value) in enumerate(zip(weights, values)):
+        items.append(Item(i, weight, value))
 
     return items
 
 
+def total_value_of_items(items):
+    total_value = 0
+    for item in items:
+        total_value += item.value
+    return total_value
+
+
+def total_weight_of_items(items):
+    total_weight = 0
+    for item in items:
+        total_weight += item.weight
+    return total_weight
+
+
 if __name__ == "__main__":
+    """
+    This code is only used for testing
+    """
+
     num_items, weights, values, capacity = read_instance_from_file("./instances/whoopdeedoo.txt", print_instance=True)
     items = create_item_classes(weights, values)
 
