@@ -1,13 +1,15 @@
 import argparse
 import random
 import os
+from math import floor
 
 
 def parse_arguments(print_args=False):
 
     parser = argparse.ArgumentParser(
         description="Parameters",
-        usage="%(prog)s [-n number] [-s seed] [-lb lower_bound] [-ub upper_bound] [-C capacity_percentage] [-f filename]"
+        usage="%(prog)s [-n number] [-s seed] [-lb lower_bound] [-ub upper_bound] [-c capacity_percentage] "
+              "[-f filename]"
     )
 
     # Define the arguments
@@ -55,7 +57,7 @@ if __name__ == "__main__":
     values = [random.randint(lower_bound, upper_bound) for _ in range(num_items)]
 
     # calculate capacity
-    capacity = sum(weights)*capacity_percentage/100
+    capacity = int(floor(sum(weights)*capacity_percentage/100))
 
     # generate txt file
     script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -65,5 +67,3 @@ if __name__ == "__main__":
         file.write(" ".join(map(str, weights)) + "\n")
         file.write(" ".join(map(str, values)) + "\n")
         file.write(str(capacity))
-
-
