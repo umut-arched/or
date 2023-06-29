@@ -13,8 +13,7 @@ def greedy_knapsack(items):
     sorted_items = sorted(items, key=lambda item: item.profitability)
 
     # init objective values
-    used_capacity = 0
-    total_value = 0
+    used_capacity, total_value = 0
     items_in_knapsack = []
 
     # iterate over all items
