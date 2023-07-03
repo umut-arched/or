@@ -1,9 +1,6 @@
 """
-Usage: python [-n number] [-s seed] [-lb lower_bound] [-ub upper_bound] [-c capacity_percentage] """
-Usage: python greedy_knapsack.py <path to instance>
-Try:   python greedy_knapsack.py ./instances/kp_0_1_10_50.txt
-"""
-
+Usage: python generate_instance.py [-n number] [-s seed] [-lb lower_bound] [-ub upper_bound] [-c capacity_percentage]
+Try:   python generate_instance.py -n 20 -s 0 -lb 1 -ub 10 -c 50 -f random_instance.txt
 """
 
 
