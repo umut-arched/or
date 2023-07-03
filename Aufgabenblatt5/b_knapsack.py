@@ -1,15 +1,22 @@
 import sys
 from util import *
+from greedy_knapsack import greedy_knapsack
 from dynamic_knapsack import print_table
 
 
-def dynamic_knapsack_integer_profit(items, do_print_table=False):
+def dynamic_knapsack_integer_profit(items, capacity, do_print_table=False):
+
     num_items = len(items)
-    max_profit = max(item.value for item in items)  # Upper bound on optimal profit
+    _, max_profit, _ = greedy_knapsack(items, capacity)
+    max_profit *= 2
 
     # create and fill table
-    table = [[capacity + 1] * (max_profit + 1) for _ in range(num_items + 1)]
-    table[0][0] = 0
+    table = [[0] * (max_profit + 1) for _ in range(num_items + 1)]
+
+    # initialize table
+    for k in range(max_profit+1):
+        if k > 0:
+            table[0][k] = capacity+1
 
     for i, item in enumerate(items, start=1):
         for k in range(max_profit + 1):
@@ -47,7 +54,7 @@ if __name__ == "__main__":
     num_items, weights, values, capacity = read_instance_from_file(instance_path, print_instance=True)
     items = create_item_classes(weights, values)
 
-    items_in_knapsack, total_value, used_capacity = dynamic_knapsack_integer_profit(items, True)
+    items_in_knapsack, total_value, used_capacity = dynamic_knapsack_integer_profit(items, capacity, True)
 
     print("\nDynamic knapsack (integer profit) result:")
     print(f"  Total value:   {total_value}")

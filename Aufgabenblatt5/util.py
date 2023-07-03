@@ -12,7 +12,7 @@ class Item:
         self.profitability = value/weight
 
     def __str__(self):
-        return f"Item {self.id}: value = {self.value}, weight = {self.weight}."
+        return f"Item {self.id}: value = {self.value}, weight = {self.weight}, profitability = {self.profitability}."
 
 
 def read_instance_from_file(path, print_instance=False):

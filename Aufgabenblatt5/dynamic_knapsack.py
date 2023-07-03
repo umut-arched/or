@@ -41,7 +41,7 @@ def print_table(table):
         print()
 
 
-def dynamic_knapsack(items, do_print_table=False):
+def dynamic_knapsack(items, capacity, do_print_table=False):
 
     num_items = len(items)
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     num_items, weights, values, capacity = read_instance_from_file(instance_path, print_instance=True)
     items = create_item_classes(weights, values)
 
-    items_in_knapsack, total_value, used_capacity = dynamic_knapsack(items, True)
+    items_in_knapsack, total_value, used_capacity = dynamic_knapsack(items, capacity, True)
 
     print("\nDynamic knapsack result:")
     print(f"  Total value:   {total_value}")
