@@ -1,3 +1,9 @@
+"""
+Usage: python generate_instance.py [-n number] [-s seed] [-lb lower_bound] [-ub upper_bound] [-c capacity_percentage]
+Try:   python generate_instance.py -n 20 -s 0 -lb 1 -ub 10 -c 50 -f random_instance.txt
+"""
+
+
 import argparse
 import random
 import os
