@@ -1,3 +1,12 @@
+"""
+Usage: python [-n number] [-s seed] [-lb lower_bound] [-ub upper_bound] [-c capacity_percentage] """
+Usage: python greedy_knapsack.py <path to instance>
+Try:   python greedy_knapsack.py ./instances/kp_0_1_10_50.txt
+"""
+
+"""
+
+
 import argparse
 import random
 import os

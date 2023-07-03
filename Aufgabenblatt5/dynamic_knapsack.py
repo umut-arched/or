@@ -62,11 +62,13 @@ def dynamic_knapsack(items, do_print_table=False):
     used_capacity = total_value = 0
     i, j = num_items, capacity
     while i > 0:
+        # if item is included in the optimal solution, add it to the knapsack
         if table[i - 1][j] < table[i][j]:
             items_in_knapsack.append(items[i - 1])
             total_value += items[i - 1].value
             used_capacity += items[i - 1].weight
             j -= items[i - 1].weight
+        # look at next item
         i -= 1
 
     return items_in_knapsack, total_value, used_capacity
@@ -91,5 +93,3 @@ if __name__ == "__main__":
     print("\nItems in knapsack:")
     for item in items_in_knapsack:
         print(f"  {item}")
-
-    pass

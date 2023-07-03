@@ -19,6 +19,7 @@ def greedy_knapsack(items):
     # iterate over all items
     for i, item in enumerate(sorted_items):
         used_capacity += item.weight
+        # check if capacity is exceeded
         if used_capacity >= capacity:
             # remove last weight (the one that exceeds the capacity)
             used_capacity -= item.weight

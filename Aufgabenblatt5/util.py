@@ -1,7 +1,11 @@
 
 
 class Item:
+
     def __init__(self, id, weight, value):
+        """
+        Initialize Item object
+        """
         self.id = id
         self.weight = weight
         self.value = value
@@ -48,6 +52,12 @@ def read_instance_from_file(path, print_instance=False):
 
 
 def create_item_classes(weights, values):
+    """
+    Create item objects using the Item class
+    :param weights: list of item weights
+    :param values: list of item values
+    :return: List of all created item objects
+    """
 
     if len(weights) != len(values):
         raise ValueError("Number of weights and values given is not equal. Can't create classes.")
@@ -60,6 +70,11 @@ def create_item_classes(weights, values):
 
 
 def total_value_of_items(items):
+    """
+    Calculated total value of item objects in a given list
+    :param items: list of item objects
+    :return: total value
+    """
     total_value = 0
     for item in items:
         total_value += item.value
@@ -67,6 +82,11 @@ def total_value_of_items(items):
 
 
 def total_weight_of_items(items):
+    """
+    Calculated total weight of item objects in a given list
+    :param items: list of item objects
+    :return: total weight
+    """
     total_weight = 0
     for item in items:
         total_weight += item.weight
