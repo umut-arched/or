@@ -7,7 +7,15 @@ import sys
 from util import *
 
 
-def greedy_knapsack(items, capacity):
+def greedy_knapsack_continuous(items, capacity):
+    """
+    Solves a continuous greedy knapsack problem
+    It works exactly like the binary greedy knapsack solution with the exception that the item that exceeds the capacity
+    is partially put into the knapsack.
+    :param items: list of item objects to calculate the optimal solution for
+    :param capacity: the capacity of the knapsack
+    :return: items_in_knapsack, total_value, used_capacity
+    """
 
     # sort items by profitability
     sorted_items = sorted(items, key=lambda item: item.profitability, reverse=True)
@@ -67,7 +75,7 @@ if __name__ == "__main__":
     num_items, weights, values, capacity = read_instance_from_file(instance_path, print_instance=True)
     items = create_item_classes(weights, values)
 
-    items_in_knapsack, total_value, used_capacity = greedy_knapsack(items, capacity)
+    items_in_knapsack, total_value, used_capacity = greedy_knapsack_continuous(items, capacity)
 
     print("\nGreedy knapsack (continuous) result:")
     print(f"  Total value:   {total_value}")
