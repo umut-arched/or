@@ -35,6 +35,7 @@ def two_opt(coords, route, iteration_depth):
                 new_route[i:j] = route[j - 1 : i - 1 : -1]
                 new_route_length = get_route_length(coords, new_route)
                 if new_route_length < best_route_length:
+
                     best_route_length = new_route_length
                     best_route = new_route
                     improvement = True
